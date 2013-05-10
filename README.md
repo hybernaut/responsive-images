@@ -77,15 +77,17 @@ The `responsive_image_tag` is meant replace the `image_tag`. You can pass any ar
 
     # basic usage
     = responsive_image_tag @post.image
-    # => <img src="path/to/image.jpg", data-desktop-src="path/to/desktop_image.jpg" data-tablet-src="path/to/tablet_image.jpg" data-mobile-src="path/to/mobile_image.jpg" /> 
+    # => <img class="responsive" src="path/to/image.jpg", data-desktop-src="path/to/desktop_image.jpg" data-tablet-src="path/to/tablet_image.jpg" data-mobile-src="path/to/mobile_image.jpg" /> 
 
 The helper method will determine what size is most appropriate for the `src` attribute. Rather than load a default size and then swap them out, the ResponsiveImage gem actually detects the user device and uses the appropriate image for the `src` attribute.
+
+TODO: the 'responsive' class is added to the emitted image tag in order to trigger the javascript as described below. It might make sense to make this configurable or more easily overridden.
 
 You can also pass custom sizes to the helper method. If you have a specific model or page that use's different image, then pass those Carrierwave versions through the :sizes parameter:
   
     # custom versions
     = responsive_image_tag @post.image, :sizes => { :tablet => :post_tablet, :mobile => :post_mobile }
-    # => <img src="path/to/image.jpg", data-desktop-src="path/to/desktop_image.jpg" data-tablet-src="path/to/post_tablet_image.jpg" data-mobile-src="path/to/post_mobile_image.jpg" /> 
+    # => <img class="responsive" src="path/to/image.jpg", data-desktop-src="path/to/desktop_image.jpg" data-tablet-src="path/to/post_tablet_image.jpg" data-mobile-src="path/to/post_mobile_image.jpg" /> 
   
 These custom versions will overwrite the default versions from our configuration. This is incredibly useful for pages or models that require a different set of sizes. For example, a page hero/banner might be much larger than most content images and requires custom sizes.
 
