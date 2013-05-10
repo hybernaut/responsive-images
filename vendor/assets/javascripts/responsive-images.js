@@ -70,18 +70,22 @@
       // Set up our data attribute
       var data_attribute = "data-" + key.replace("_", "-").replace('size', 'src');      
       responsive_images.each(function(index, item) {
+        var $item = $(item);
         // Let's make sure the data attribute exists
-        if ( $(item).attr(data_attribute) != null ) {        
+        if ( $item.attr(data_attribute) != null ) {        
           // If the item is a div, let's set the background image
-          if ( $(item).is('div') ) {
-            $(item).css({
-              "background-image" : 'url("' + $(item).attr(data_attribute) + '")',
+          if ( $item.is('div') ) {
+            $item.css({
+              "background-image" : 'url("' + $item.attr(data_attribute) + '")',
               "background-size" : "auto",
             });
           }
-          // If it's an image, let's just replace the source
-          else if ( $(item).is('img') ) {
-            $(item).attr('src', $(item).attr(data_attribute));
+          // If it's an image, and the src value is different, let's just replace the source
+          else if ( $item.is('img') ) {
+            var data_attr_val = $item.attr(data_attribute);
+            if ($item.attr('src') != data_attr_val){
+              $(item).attr('src', $(item).attr(data_attribute));
+            }
           };
         };
       });
